@@ -127,9 +127,9 @@ Execute the CUDA application
 ![](https://i.imgur.com/5tdkWno.png)
 ![](https://i.imgur.com/S92hlT6.png)
 
-### Installation of cuDNN Libraries
+### [Installation of cuDNN Libraries](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html)
 
-1. [Download the debian files of the cuDNN libraries](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html) 
+1. [Download the debian files of the cuDNN libraries](https://developer.nvidia.com/cudnn-download-survey) 
 
 2. Install the runtime library
 ```
