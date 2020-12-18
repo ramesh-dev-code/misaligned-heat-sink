@@ -1,7 +1,11 @@
 # Image Classification of Misaligned Heat Sink
 ### Objective
 To design the CNN-based deep neural network (DNN) to infer the presence of misaligned heat sink in the device under test   
-### Two Classes of Heat Sink Images
+### Heat Sink Images   
+**PASS: Algined Heat Sink**   
+![Optional Text](images/pass.jpg)   
+**FAIL: Misalgined Heat Sink**   
+![Optional Text](images/fail.jpg)   
 
 ### Proposed DNN   
 ![](https://i.imgur.com/BFT99jG.png)   
