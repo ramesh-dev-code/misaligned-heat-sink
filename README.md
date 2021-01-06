@@ -234,7 +234,7 @@ python3 -m pip install --upgrade pip
 3. Install Tensorflow
 pip3 install tensorflow
 
-4. Update the path of python.exe in the virtual environment to the Eclipse IDE
+4. Update the path of python.exe in the virtual environment on the Eclipse IDE
 
 ### Errors and Workaround
 
