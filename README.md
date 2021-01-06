@@ -7,8 +7,10 @@ To design the CNN-based deep neural network (DNN) to infer the presence of misal
 **FAIL: Misalgined Heat Sink**   
 ![Optional Text](images/fail.jpg)   
 
-### Proposed DNN   
-![](https://i.imgur.com/BFT99jG.png)   
+### Architecture of VGG16 Model      
+![](https://i.imgur.com/fshCcha.png)   
+### Proposed Model   
+![](https://i.imgur.com/kDrjwRs.png)
 ### Data Acquisition   
 1. Used the python script capture_image.py to capture the webcam images   
 2. Labeled the two output classes to be classifed by the proposed model as: 0-FAIL (Misaligned or no heat sink), 1-PASS (Correctly aligned heat sink)
