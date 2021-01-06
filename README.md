@@ -72,8 +72,12 @@ Dimensions: 224 x 224
 ```
 python3 predict.py
 ```
-#### Sample Output  
-![](https://i.imgur.com/MbHKFlJ.png)   
+#### Sample Outputs  
+**PASS**   
+![](https://i.imgur.com/QDTeMJu.jpg)   
+
+**FAIL**   
+![](https://i.imgur.com/SPaeAy9.jpg)   
 
 ## Training Platform Setup
 ### Training Platform
