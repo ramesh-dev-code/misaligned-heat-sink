@@ -63,6 +63,12 @@ Dimensions: 224 x 224
 ![](https://i.imgur.com/9rKnONx.png)
 
 ### Prediction    
+1. Capture the webcam image   
+2. Change the color space from BGR into RGB   
+3. Resize the image into the dimensions of 224 x 224   
+4. Subtract the per-channel mean from the resized image   
+5. Predict the output class of the image with the trained model   
+
 ```
 python3 predict.py
 ```
