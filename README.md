@@ -19,7 +19,7 @@ To design the CNN-based deep neural network (DNN) to infer the presence of misal
 6. Start training, but only train the FC layer heads.
 7. Optionally unfreeze some/all of the CONV layers in the network and perform a second pass of training.
 8. Distribute the network training using the [Keras MirroredStrategy API](https://www.tensorflow.org/tutorials/distribute/keras) for in-graph replication with synchronous training on two GPUs
-9. Compile the model with the adam optimizer, sparse categorical crossentropy loss, and accuracy metric
+9. Compile the model with the adam optimizer, categorical crossentropy loss, and accuracy metric
 10. Define the callbacks for saving the model with the maximum accuracy and for logging the events with Tensorboard
 11. Train the model on the desired number of epochs (or iterations) over the training batches
 12. Plot the loss and accuracy across the training and validation epochs
