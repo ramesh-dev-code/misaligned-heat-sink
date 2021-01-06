@@ -10,14 +10,64 @@ To design the CNN-based deep neural network (DNN) to infer the presence of misal
 ### Architecture of VGG16 Model      
 ![](https://i.imgur.com/fshCcha.png)   
 ### Proposed Model   
-![](https://i.imgur.com/kDrjwRs.png)
+![](https://i.imgur.com/kDrjwRs.png)   
+#### [Fine-tuning Steps](https://www.pyimagesearch.com/2019/06/03/fine-tuning-with-keras-and-deep-learning/)
+1. Remove the fully connected nodes at the end of the network (i.e., where the actual class label predictions are made).
+2. Include the global average pooling layer to summarize the learned features of the previous CNN layers
+3. Replace the two fully connected nodes of VGG16 model with two 512-node hidden layers and a two-node output layer with the softmax classifier.
+5. Freeze the CONV layers earlier in the network (ensuring that any previous robust features learned by the CNN are not destroyed).
+6. Start training, but only train the FC layer heads.
+7. Optionally unfreeze some/all of the CONV layers in the network and perform a second pass of training.
+8. Distribute the network training using the [Keras MirroredStrategy API](https://www.tensorflow.org/tutorials/distribute/keras) for in-graph replication with synchronous training on two GPUs
+9. Compile the model with the adam optimizer, sparse categorical crossentropy loss, and accuracy metric
+10. Define the callbacks for saving the model with the maximum accuracy and for logging the events with Tensorboard
+11. Train the model on the desired number of epochs (or iterations) over the training batches
+12. Plot the loss and accuracy across the training and validation epochs
+13. Repeat steps 3-12 by varying the number of hidden nodes in the fully connected network, optimization algorithm and parameters, activation function, and preprocessing methods
 ### Data Acquisition   
 1. Used the python script capture_image.py to capture the webcam images   
 2. Labeled the two output classes to be classifed by the proposed model as: 0-FAIL (Misaligned or no heat sink), 1-PASS (Correctly aligned heat sink)
 3. Captured the webcam images with the following experimental setup
 #### Experimental Setup
 ![](https://i.imgur.com/9Hw9XEL.png)   
-4. Collected 2250 images for FAIL and 2054 images for PASS
+4. Collected 1518 images for each class
+
+### Preprocessing
+1. Convert the color space of the image from BGR to RGB
+2. Resize the image to 224 x 224 
+3. Subtract the per-channel mean of the imagenet dataset (RGB:[123.68, 116.779, 103.939]) from the resized image   
+
+**Input Image (PASS)**   
+Dimensions: 640 x 480   
+![](https://i.imgur.com/3ICBEm3.png)   
+
+**Preprocessed Image (PASS)**   
+Dimensions: 224 x 224   
+![](https://i.imgur.com/c39r6Nc.png)   
+
+**Input Image (FAIL)**   
+Dimensions: 640 x 480   
+![](https://i.imgur.com/X0TR092.png)   
+
+**Preprocessed Image (FAIL)**   
+Dimensions: 224 x 224   
+![](https://i.imgur.com/59ynZRO.png)   
+
+### Training   
+1. Maximum training epochs = 100   
+2. Save the model after each epoch in the ModelCheckPoint and set patience = 30 in the EarlyStopping
+3. Execution Time: 3.76 m, Epochs: 35
+
+#### Performance   
+![](https://i.imgur.com/VcANspd.png)
+![](https://i.imgur.com/9rKnONx.png)
+
+### Prediction    
+```
+python3 predict.py
+```
+#### Sample Output  
+![](https://i.imgur.com/MbHKFlJ.png)   
 
 ## Training Platform Setup
 ### Training Platform
