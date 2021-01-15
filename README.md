@@ -1,6 +1,7 @@
 # Image Classification of Misaligned Heat Sink
-### Objective
-To design the CNN-based deep neural network (DNN) to infer the presence of misaligned heat sink in the device under test   
+### Objectives
+1. To design the CNN-based deep neural network (DNN) to infer the presence of misaligned heat sink in the device under test
+2. To develop the image classification application with the trained model to infer the real-time status of heat sink in the webcam images for automated optical insepction (AOI) applications
 ### Heat Sink Images   
 **PASS: Algined Heat Sink**   
 ![Optional Text](images/pass.jpg)   
