@@ -55,9 +55,10 @@ Dimensions: 224 x 224
 ![](https://i.imgur.com/59ynZRO.png)   
 
 ### Training   
-1. Maximum training epochs = 100   
-2. Save the model after each epoch in the ModelCheckPoint and set patience = 30 in the EarlyStopping
-3. Execution Time: 3.76 m, Epochs: 35
+1. Freeze all the convolution layers in the pre-trained VGG model. Train only the fully-connected network (with two 512-node hidden layers and a 2-node output layer with softmax classifier) on the target dataset 
+2. Maximum training epochs = 100   
+3. Save the model after each epoch in the ModelCheckPoint and set patience = 30 in the EarlyStopping
+4. Execution Time: 3.76 m, Epochs: 35
 
 #### Performance   
 ![](https://i.imgur.com/VcANspd.png)
@@ -79,6 +80,14 @@ python3 predict.py
 
 **FAIL**   
 ![](https://i.imgur.com/SPaeAy9.jpg)   
+
+### Inference   
+Achieves the best performance only on the testing images captured at top angles. However, it leads to poor performance on the images captured at different angles which are not included in the training dataset 
+
+### Training the VGG model by fine-tuning the convolution layers   
+1. Dataset: PASS: 2054 images, FAIL: 2250 images (Captured at multiple angles)   
+2. Unfreeze the last two blocks of conv layers in the VGG model. Fully-connected network: 2 x 512-node hidden layer + 2-node output layer with softmax classifier. Train the network on the target dataset.
+3. Training Epochs: 30, Time: 6.8 m, Trained Model: best_model_18-03-2021_10:04:30.h5   
 
 ## Training Platform Setup
 ### Training Platform
