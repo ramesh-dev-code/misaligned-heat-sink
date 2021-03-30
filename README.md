@@ -110,7 +110,7 @@ Achieves the best performance on testing images captured at different angles
 
 ### Performance Evaluation   
 Evaluate the performance of models trained in Experiment-I and Experiment-II   
-![](https://i.imgur.com/YC6SkZ8.png)   
+![](https://i.imgur.com/KlOdnep.png)       
 
 
 ## Training Platform Setup
