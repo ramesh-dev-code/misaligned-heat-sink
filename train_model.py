@@ -17,18 +17,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import pylab
 
-data_dir = pathlib.Path('/home/test/Documents/DeepLearning/Classification/AOI/HeatSink/Training/Datasets/Images/Preprocessed_ImageNet')
+data_dir = pathlib.Path('/home/test/Documents/DeepLearning/Classification/AOI/HeatSink/Training/Datasets/Images/Preprocessed')
 image_count = len(list(data_dir.glob('*/*.jpg')))
 print('Image Count is ',image_count)
 
 # Image parameters
-batch_size = 64
+batch_size = 32
 img_height = 224
 img_width = 224
 
 # Hyperparameters
 learning_rate = 0.0001
-tr_epochs = 100
+tr_epochs = 30
 
 # Creating the training and validation datasets after resizing and data splitting
 train_ds = preprocessing.image_dataset_from_directory(
@@ -76,8 +76,16 @@ with strategy.scope():
     baseModel = VGG16(include_top=False,pooling='avg',weights='imagenet',input_shape=(img_width, img_height, 3),classes=num_classes)
     #baseModel = VGG16(include_top=False,weights='imagenet',input_shape=(img_width, img_height, 3),classes=num_classes)
     # mark loaded layers as not trainable to retain the learned features of VGG16 models
+    # Unfreezing the last two convolution layers in VGG-16
+    k = 0
     for layer in baseModel.layers:
-        layer.trainable = False    
+        if k < 11:
+            layer.trainable = False
+        k = k + 1
+    '''
+    for layer in baseModel.layers:
+        layer.trainable = False       
+    '''
     # Configuring the FC layers and output
     #flat = Flatten()(baseModel.output)
     # Add a FC NN
@@ -98,11 +106,11 @@ print(model.summary())
 tensorboard = TensorBoard(log_dir="logs/{}".format(datetime.now().strftime("%d-%m-%Y_%H:%M:%S")))
 cp_filepath = "/home/test/workspace/HeatSink/src/checkpoints/best_model_{}.h5".format(datetime.now().strftime("%d-%m-%Y_%H:%M:%S"))
 checkpoint = ModelCheckpoint(filepath=cp_filepath, monitor='val_accuracy', verbose=1, save_best_only=False, save_weights_only=False, save_freq='epoch', mode='auto')
-early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=30, verbose=1, mode='auto')
+#early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=30, verbose=1, mode='auto')
 
 t1 = datetime.now()
 # Train the model
-history = model.fit(train_ds,validation_data=val_ds,epochs=tr_epochs,verbose=1,callbacks=[tensorboard,checkpoint,early])
+history = model.fit(train_ds,validation_data=val_ds,epochs=tr_epochs,verbose=1,callbacks=[tensorboard,checkpoint])
 td = (datetime.now()-t1).total_seconds()/60
 print('Execution Time: {} minutes'.format(td))
 
