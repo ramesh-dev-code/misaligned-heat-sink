@@ -104,6 +104,11 @@ Better than Experiment-I, but still failed on testing images captured at differe
 3. Subtract the RGB values of each pixel from the mean RGB of the imagenet dataset. Set batch size to 32   
 4. Unfreeze the last two blocks of conv layers in the VGG model. Fully-connected network: 2 x 512-node hidden layer + 2-node output layer with softmax classifier. Train the network on the target dataset   
 5. Training Epochs: 30, Time: 6.8 m, Trained Model: best_model_18-03-2021_10:04:30.h5   
+### Sample Outputs   
+**PASS**   
+![](https://i.imgur.com/VFE6Svn.png)   
+**FAIL**   
+![](https://i.imgur.com/sDqNxG3.png)   
 
 ### Inference   
 Achieves the best performance on testing images captured at different angles   
