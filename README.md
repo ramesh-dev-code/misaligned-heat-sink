@@ -54,13 +54,13 @@ Dimensions: 640 x 480
 Dimensions: 224 x 224   
 ![](https://i.imgur.com/59ynZRO.png)   
 
-### Training   
+## Experiment-I: Transfer-learning the pre-trained VGG model on images captured only at top angles   
 1. Freeze all the convolution layers in the pre-trained VGG model. Train only the fully-connected network (with two 512-node hidden layers and a 2-node output layer with softmax classifier) on the target dataset 
 2. Maximum training epochs = 100   
 3. Save the model after each epoch in the ModelCheckPoint and set patience = 30 in the EarlyStopping
 4. Execution Time: 3.76 m, Epochs: 35
 
-#### Performance   
+### Performance   
 ![](https://i.imgur.com/VcANspd.png)
 ![](https://i.imgur.com/9rKnONx.png)
 
@@ -84,10 +84,34 @@ python3 predict.py
 ### Inference   
 Achieves the best performance only on the testing images captured at top angles. However, it leads to poor performance on the images captured at different angles which are not included in the training dataset 
 
-### Training the VGG model by fine-tuning the convolution layers   
-1. Dataset: PASS: 2054 images, FAIL: 2250 images (Captured at multiple angles)   
-2. Unfreeze the last two blocks of conv layers in the VGG model. Fully-connected network: 2 x 512-node hidden layer + 2-node output layer with softmax classifier. Train the network on the target dataset.
-3. Training Epochs: 30, Time: 6.8 m, Trained Model: best_model_18-03-2021_10:04:30.h5   
+## Experiment-II: Transfer-learning the pre-trained VGG model on images captured at different angles   
+1. Dataset: PASS: 2054 images, FAIL: 2250 images (Captured at different angles and varying distances from the camera)   
+2. Resize the image to 224 x 224    
+3. Subtract the RGB values of each pixel from the mean RGB of the imagenet dataset. Set batch size to 32   
+4. Freeze all conv layers in the VGG network. FC network: 2 x 512-node hidden layer+2-node output layer with softmax classifier. Train the network on the target dataset    
+5. Training Epochs: 50, Time:  6.5 m, Trained Model: best_model_18-03-2021_10:24:52.h5   
+
+### Performance   
+![](https://i.imgur.com/427u7Jt.png)   
+![](https://i.imgur.com/HIKGgfH.png)   
+
+### Inference   
+Better than Experiment-I, but still failed on testing images captured at different angles which are not included in the training dataset    
+
+## Experiment-III: Training the VGG model by fine-tuning the convolution layers   
+1. Dataset: PASS: 2054 images, FAIL: 2250 images (Captured at different angles and varying distances from the camera)   
+2. Resize the image to 224 x 224     
+3. Subtract the RGB values of each pixel from the mean RGB of the imagenet dataset. Set batch size to 32   
+4. Unfreeze the last two blocks of conv layers in the VGG model. Fully-connected network: 2 x 512-node hidden layer + 2-node output layer with softmax classifier. Train the network on the target dataset   
+5. Training Epochs: 30, Time: 6.8 m, Trained Model: best_model_18-03-2021_10:04:30.h5   
+
+### Inference   
+Achieves the best performance on testing images captured at different angles   
+
+### Performance Evaluation   
+Evaluate the performance of models trained in Experiment-I and Experiment-II   
+![](https://i.imgur.com/YC6SkZ8.png)   
+
 
 ## Training Platform Setup
 ### Training Platform
