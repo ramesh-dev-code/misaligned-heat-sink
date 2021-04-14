@@ -114,7 +114,7 @@ Better than Experiment-I, but still failed on testing images captured at differe
 Achieves the best performance on testing images captured at different angles   
 
 ### Performance Evaluation   
-Evaluate the performance of models trained in Experiment-I and Experiment-II   
+Evaluate the performance of models trained in Experiment-II and Experiment-III   
 ![](https://i.imgur.com/KlOdnep.png)       
 
 
